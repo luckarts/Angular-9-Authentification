@@ -1,0 +1,11 @@
+<div class="form-group  required errored">
+  <label class="font-weight-bold text-capitalize">{{ label }} *</label>
+  <input [type]="inputType" [formControl]="control" class="{{cssClass(control.touched && control.errors )}}" />
+
+  <div *ngIf="showErrors()">
+    <p class="text-danger" *ngIf="control.errors.required">Value is required</p>
+    <p class="text-danger" *ngIf="control.errors.minlength">Value is to short</p>
+
+  </div>
+
+</div>
