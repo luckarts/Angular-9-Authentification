@@ -26,7 +26,16 @@ export async function update_User(req, res) {
 
         }
     }
+    const found_User = await validUserExist(username, email);
 
+    if (found_User) {
+         if (email === found_User.email) {
+            return res.status(400).json({ "error": { "email": `${email}  already taken` } });
+        }
+        if (username === found_User.username) {
+            return res.status(400).json({ "error": { "username": `${username} already taken` } });
+        }
+    }
 
     if (email || path || username) {
         if (path) path = req.file.filename;

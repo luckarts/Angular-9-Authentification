@@ -36,6 +36,7 @@ export async function validUserExist(username, email) {
 }
 
 export async function createNewUser(args) {
+
     return await createUser(args);
 }
 

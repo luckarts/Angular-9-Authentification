@@ -4,7 +4,7 @@ import bodyParser from "body-parser";
 import morgan from "morgan";
 import dotenv from "dotenv";
 import passport from "passport";
-
+import path from 'path'
 import auth_Routes from "./API/User/auth_Routes";
 
 dotenv.config();
@@ -28,11 +28,13 @@ app.use((req, res, next) => {
 });
 
 // Index Route
-
-app.use(express.static(`${process.cwd()}/public`));
+app.use(express.static(path.join(__dirname + '/../build')));
 
 app.use("/api/users", auth_Routes);
 
+app.use('*', (req, res) => {
+    res.sendFile(path.join(__dirname + '/../build/index.html'));
+  });
 // error handler
 app.use((req, res, next) => {
     let err = new Error("Not Found");

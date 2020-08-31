@@ -1,0 +1,23 @@
+<nav class="navbar navbar-expand bg-primary justify-content-between">
+  <div class="navbar-brand">
+    <a class="nav-link" href="/" [ngClass]="'is-active'">Authentification</a>
+  </div>
+  <ul class="nav">
+    <li class="nav-item" *ngIf="!(isLoggedIn$ | async)">
+      <a class="nav-link" href="/register" [ngClass]="'is-active'">
+        Sign Up
+      </a>
+    </li>
+    <li class="nav-item" *ngIf="!(isLoggedIn$ | async)">
+      <a class="nav-link" href="/login" [ngClass]="'is-active'">
+        Login
+      </a>
+    </li>
+    <li class="nav-item" *ngIf="isLoggedIn$ | async">
+      <a class="nav-link" href="#" (click)="logout()">LogOut</a>
+    </li>
+    <li class="nav-item" *ngIf="isLoggedIn$ | async">
+      <a class="nav-link" href="/profile/edit">Edit profile</a>
+    </li>
+  </ul>
+</nav>

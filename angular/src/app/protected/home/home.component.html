@@ -1,0 +1,18 @@
+<div class="card mt-4">
+  <h4 class="card-header">Home</h4>
+  <div class="card-body" *ngIf="user">
+    <p>You're logged in with Angular 9 & JWT!!</p>
+    <p>
+      Your username is: <strong>{{ user.username }}</strong>
+    </p>
+    <form (ngSubmit)="onSubmit()" [formGroup]="updateForm">
+      <app-input
+        label="password"
+        placeholder="Please Enter your password"
+        inputType="password"
+        [control]="updateForm.get('password')"
+      ></app-input>
+      <button type="submit" class="btn btn-primary">Continuer</button>
+    </form>
+  </div>
+</div>

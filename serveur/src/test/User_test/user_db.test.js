@@ -14,7 +14,7 @@ async function createusers() {
         "PermissionId": 1
     });
 }
-async function DestroyUser(user) {
+async function destroyUser(user) {
     user.destroy({ "where": {}, "force": true });
 }
 
@@ -36,12 +36,13 @@ describe("User Test", () => {
     });
 
     it("should see if user already exist and fail", async () => {
+        const test = await createusers();
         const check = await usernameExist("test");
 
         expect(typeof check === "object").toBe(true);
-        const test = await createusers();
 
-        await DestroyUser(test);
+
+        await destroyUser(test);
     });
     /* Email test*/
     it("should see if email already exist in DB", async () => {
@@ -62,7 +63,7 @@ describe("User Test", () => {
         const check = await emailExist("test@test.com");
         const test = await createusers();
 
-        await DestroyUser(test);
+        await destroyUser(test);
         expect(typeof check === "object").toBe(true);
     });
     /* User test*/
@@ -76,7 +77,7 @@ describe("User Test", () => {
         const arg = { username, password, email, PermissionId };
         const user = await createUser(arg);
 
-        await DestroyUser(user);
+        await destroyUser(user);
         expect(typeof user === "object").toBe(true);
         expect(user.username).toBe(username);
         expect(user.password).toBe(password);
@@ -126,7 +127,7 @@ describe("User Test", () => {
             PermissionId
         });
 
-        await DestroyUser(user);
+        await destroyUser(user);
         expect(typeof user === "object").toBe(true);
         expect(user.username).toBe(username);
         expect(user.password).toBe(password);
@@ -134,12 +135,12 @@ describe("User Test", () => {
         expect(user.PermissionId).toBe(PermissionId);
     });
 
-    it('should return user based on their id ', async () => {
+    it('should find user data with username ', async () => {
         const test = await createusers();
         const user = await findUserIdOrFirstname(test.username);
 
-        await DestroyUser(user);
         expect(typeof user === 'object').toBe(true);
+        await destroyUser(test);
     });
 
     it('should throw an error because no user id was passed', async () => {

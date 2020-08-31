@@ -37,9 +37,9 @@ If Validation is true Call validUserExist if user already exist
     const found_User = await validUserExist(username, email);
 
     if (found_User) {
-        if (email === found_User.email) {
+      /*   if (email === found_User.email) {
             return res.status(400).json({ "error": { "email": `${email}  already taken` } });
-        }
+        } */
         if (username === found_User.username) {
             return res.status(400).json({ "error": { "username": `${username} already taken` } });
         }

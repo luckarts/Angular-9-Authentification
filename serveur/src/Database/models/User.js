@@ -1,5 +1,5 @@
 import bcrypt from "bcrypt";
-import db from "../models";
+
 const Salt_Factor = 10;
 
 export default (connection, DataTypes) => {
@@ -10,24 +10,48 @@ export default (connection, DataTypes) => {
             "autoIncrement": true,
             "primaryKey": true
         },
-        "username": {
-            "type": DataTypes.STRING(20),
-            "allowNull": false,
-            "required": true
-        },
-        "password": {
-            "type": DataTypes.STRING(500),
-            "allowNull": false,
-            "required": true
-        },
-        "email": {
-            "type": DataTypes.STRING(30),
-            "allowNull": false,
-            "lowercase": true,
-            "trim": true,
-            "unique": true,
-            "required": true
-        }
+          username: {
+            type: DataTypes.STRING(20),
+            allowNull: false,
+            required: true,
+            validate: {
+              len: {
+                arg: [5, 20],
+                message: 'username has to between 2 and 20 characters'
+              },
+
+              is: /^[A-Za-z]+$/i,
+            }
+          },
+          email: {
+            type: DataTypes.STRING(30),
+            lowercase: true,
+            trim: true,
+            allowNull: true,
+            validate: {
+              len: {
+                arg: [5, 30],
+                message: 'username has to between 2 and 30 characters'
+              },
+
+              is: /\S+@\S+\.\S+/,
+            }
+          },
+
+          password: {
+            type: DataTypes.STRING(50),
+            allowNull: false,
+            required: true,
+
+            validate: {
+              len: {
+                arg: [5, 50],
+                message: 'username has to between 2 and 30 characters'
+              },
+              is:(/^(?=.*[a-z])[A-Za-z\d@$!%*?&]{3,20}$/),
+
+            }
+          },
     });
 
     // Will also add PermissionID to User model

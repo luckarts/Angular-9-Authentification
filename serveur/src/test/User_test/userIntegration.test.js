@@ -21,7 +21,7 @@ describe("Testing Route User", () => {
         done();
     });
 
-    it("post signup endpoint", async (done) => {
+    it("should post signup with user data", async (done) => {
         const username = "test";
         const password = "test";
         const email = "test@test.com";
@@ -49,7 +49,7 @@ describe("Testing Route User", () => {
         expect(response.body.message).toMatch("User has been delete!");
         done();
     });
-    it("post signup endpoint", async (done) => {
+    it(" should return error of post signup ", async (done) => {
         const password = "test";
         const email = "test@test.com";
 
@@ -60,7 +60,7 @@ describe("Testing Route User", () => {
             .expect("Content-Type", /json/)
             .expect(500)
             .end((err, res) => {
-                console.log(res.body.error.username[0]);
+                
                 expect(res.body.error.username[0]).toMatch(
                     "Veuillez saisir votre pseudo"
                 );
